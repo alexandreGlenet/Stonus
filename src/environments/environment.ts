@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+     production: false,
+     authUrl: "http://localhost/Site_WordPress/Stonus/wordpress/wp-json",
+     apiUrl: "http://localhost/Site_WordPress/Stonus/wordpress/wp-json/wp/v2",
+    };
 
 /*
  * For easier debugging in development mode, you can import the following file

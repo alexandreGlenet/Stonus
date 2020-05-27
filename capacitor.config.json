@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Stonus-App",
+  "appId": "com.stonus.app",
+  "appName": "stonusApp",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
