@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'stone-lists',
     loadChildren: () => import('./stone-lists/stone-lists.module').then( m => m.StoneListsPageModule)
+  },
+  {
+    path: 'stones/:id',
+    loadChildren: () => import('./stone-details/stone-details.module').then( m => m.StoneDetailsPageModule)
   }
 ];
 

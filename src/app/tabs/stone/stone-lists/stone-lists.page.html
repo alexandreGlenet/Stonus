@@ -26,11 +26,14 @@
     <ion-card-header>
       <ion-card-title [innerHTML]="stone.title"></ion-card-title>
       <ion-card-subtitle>{{ stone.created_at  }}</ion-card-subtitle>
+      <ion-label>
+        latitude : {{ stone.latitude }}
+      </ion-label>
     </ion-card-header>
     <ion-card-content>
       <img [src]="stone.photo" *ngIf="stone.photo" class="post-img">
       <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
-      <ion-button expand="full" fill="clear" [routerLink]="['/', 'stones', stone.id]" text-right>Read More...</ion-button>
+      <ion-button expand="full" fill="clear" [routerLink]="['/','tabs','tabs','stone','stones', stone.id]" text-right>Read More...</ion-button>
     </ion-card-content>
   </ion-card>
 
