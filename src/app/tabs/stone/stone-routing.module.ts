@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: StonePage
+  },
+  {
+    path: 'stone-lists',
+    loadChildren: () => import('./stone-lists/stone-lists.module').then( m => m.StoneListsPageModule)
   }
 ];
 

@@ -20,17 +20,17 @@ export class ApiService {
     };
 
     return this.http
-      .get<any[]>(`${environment.apiUrl}stones?_embed`, options)
+      .get<any[]>(`${environment.authUrl}/stonus/v1/stones`, options)
       .pipe(
         map((res) => {
           let data = res["body"];
 
           for (let stone of data) {
-            if (stone["_embedded"]["wp:featuredmedia"]) {
-              stone.media_url =
-                stone["_embedded"]["wp:featuredmedia"][0]["media_details"].sizes[
+            if (stone.photo) {
+              stone.photo =
+                stone.photo.sizes[
                   "medium"
-                ].source_url;
+                ];
             }
           }
 

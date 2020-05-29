@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Stones-List</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="openFilter($event)">
+        <ion-icon [name]="categoryFilter ? 'pricetag' : 'pricetag-outline'" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <ion-searchbar (ionChange)="searchChanged($event)" debounce="400" [(ngModel)]="searchTerm"></ion-searchbar> -->
+
+
+  <div *ngIf="totalStones > 0" class="ion-text-center ion-padding">
+    Found {{ totalStones }}
+  </div>
+
+  <ion-card *ngFor="let stone of stones">
+    <ion-card-header>
+      <ion-card-title [innerHTML]="stone.title"></ion-card-title>
+      <ion-card-subtitle>{{ stone.created_at  }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="stone.photo" *ngIf="stone.photo" class="post-img">
+      <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
+      <ion-button expand="full" fill="clear" [routerLink]="['/', 'stones', stone.id]" text-right>Read More...</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingText="Loading more posts...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+</ion-content>
