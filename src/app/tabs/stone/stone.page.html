@@ -5,11 +5,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment value="map" (ionChange)="onFilterUpdate($event)" [(ngModel)]="segmentModel">
-    <ion-segment-button value="map">Stones's map</ion-segment-button>
-    <ion-segment-button value="stones-list">Stones's list</ion-segment-button>
+
+  <ion-segment id="positionInitiale" value="map" (ionChange)="onFilterUpdate($event)" [(ngModel)]="segmentModel">
+    <ion-segment-button value="map">
+      <ion-label>Stones's map</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="stones-list">
+      <ion-label>Stones's list</ion-label>
+    </ion-segment-button>
   </ion-segment>
 
+
+  <div id="mapId" style="width: 100%; height: 93%"></div>
 
 
 
@@ -37,5 +44,5 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <div id="mapId" style="width: 100%; height: 100%"></div>
+
 </ion-content>

@@ -39,9 +39,10 @@ export class StonePage implements OnInit {
 		{
 			attribution:
 				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-			//maxZoom: 16,
-			tileSize: 512,
-			zoomOffset: -1,
+			minZoom: 4,
+			maxZoom: 16,
+			tileSize: 256,
+			//zoomOffset: -1,
 		}
 	);
 
@@ -88,7 +89,7 @@ export class StonePage implements OnInit {
 	}
 
 	loadMap() {
-		this.map = new L.Map("mapId2").setView([50.64, 5.576], 16); // fitworld fait buguer donc j'assigne une coordonnée au chargmenet ici l'univ de liege
+		this.map = new L.Map("mapId2").setView([50.64, 5.576], 19); // fitworld fait buguer donc j'assigne une coordonnée au chargmenet ici l'univ de liege
 		//this.locatePosition();
 		this.mainLayer.addTo(this.map);
 		//this.map.on("locationfound", this.onLocationFound);
@@ -98,8 +99,8 @@ export class StonePage implements OnInit {
 		this.map
 			.locate({
 				setView: true,
-				//minZoom: 6,
-				//maxZoom: 18,
+				minZoom: 6,
+				maxZoom: 19,
 				//watch: true,
 				enableHighAccuracy: true,
 			})
