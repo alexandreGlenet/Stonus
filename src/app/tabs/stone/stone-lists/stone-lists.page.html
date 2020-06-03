@@ -14,28 +14,34 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-segment value="" (ionChange)="onFilterUpdate($event)">
+    <ion-segment-button value="map" routerLink="/tabs/stone">Stones's map</ion-segment-button>
+    <ion-segment-button value="stones-list" routerLink="/tabs/stone/stone-lists">Stones's list</ion-segment-button>
+  </ion-segment>
   <!-- <ion-searchbar (ionChange)="searchChanged($event)" debounce="400" [(ngModel)]="searchTerm"></ion-searchbar> -->
 
+  <div>
+    <div *ngIf="totalStones > 0" class="ion-text-center ion-padding">
+      Found {{ totalStones }}
+    </div>
 
-  <div *ngIf="totalStones > 0" class="ion-text-center ion-padding">
-    Found {{ totalStones }}
+    <ion-card *ngFor="let stone of stones">
+      <ion-card-header>
+        <ion-card-title [innerHTML]="stone.title"></ion-card-title>
+        <ion-card-subtitle>{{ stone.created_at  }}</ion-card-subtitle>
+        <ion-label>
+          latitude : {{ stone.latitude }}
+        </ion-label>
+      </ion-card-header>
+      <ion-card-content>
+        <img [src]="stone.photo" *ngIf="stone.photo" class="post-img">
+        <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
+        <ion-button expand="full" fill="clear" [routerLink]="['/', 'tabs','stone','stones', stone.id]" text-right>Read
+          More...</ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
 
-  <ion-card *ngFor="let stone of stones">
-    <ion-card-header>
-      <ion-card-title [innerHTML]="stone.title"></ion-card-title>
-      <ion-card-subtitle>{{ stone.created_at  }}</ion-card-subtitle>
-      <ion-label>
-        latitude : {{ stone.latitude }}
-      </ion-label>
-    </ion-card-header>
-    <ion-card-content>
-      <img [src]="stone.photo" *ngIf="stone.photo" class="post-img">
-      <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
-      <ion-button expand="full" fill="clear" [routerLink]="['/', 'tabs','stone','stones', stone.id]" text-right>Read More...</ion-button>
-    </ion-card-content>
-  </ion-card>
 
   <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content loadingText="Loading more posts...">

@@ -1,4 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { SegmentChangeEventDetail } from "@ionic/core";
+import { ApiService } from "src/app/services/api.service";
+import { LoadingController } from "@ionic/angular";
+
 import * as L from "leaflet";
 import { antPath } from "leaflet-ant-path";
 import "leaflet/dist/images/marker-shadow.png";
@@ -10,6 +14,7 @@ import "leaflet/dist/images/marker-icon-2x.png";
 	styleUrls: ["./stone.page.scss"],
 })
 export class StonePage implements OnInit {
+	//Map
 	map: L.Map;
 	newMarker: any;
 	address: string[];
@@ -40,12 +45,51 @@ export class StonePage implements OnInit {
 		}
 	);
 
-	constructor() {}
+	//Stones-list
+	page = 1;
+	stones = [];
+	totalPages = 0;
+	totalStones = 0;
 
-	ngOnInit() {}
+	//Segment
+	segmentModel = "map";
+
+	constructor(
+		private api: ApiService,
+		private loadingCtrl: LoadingController
+	) {}
+
+	ngOnInit() {
+		this.loadStones();
+	}
+
+	async loadStones() {
+		let loading = await this.loadingCtrl.create({
+			message: "Loading Stones",
+		});
+
+		await loading.present();
+
+		this.api.getStones(this.page).subscribe(
+			(res) => {
+				console.log("res: ", res);
+
+				this.stones = res.stones;
+				this.totalPages = res.totalPages;
+				this.totalStones = res.totalStones;
+			},
+			(err) => {
+				console.log("errors :", err);
+			},
+			() => {
+				loading.dismiss();
+			}
+		);
+	}
 
 	loadMap() {
-		this.map = new L.Map("mapId").setView([50.64, 5.576], 16); // fitworld fait buguer donc j'assigne une coordonnée au chargmenet ici l'univ de liege
+		this.map = new L.Map("mapId2").setView([50.64, 5.576], 16); // fitworld fait buguer donc j'assigne une coordonnée au chargmenet ici l'univ de liege
+		//this.locatePosition();
 		this.mainLayer.addTo(this.map);
 		//this.map.on("locationfound", this.onLocationFound);
 	}
@@ -60,15 +104,25 @@ export class StonePage implements OnInit {
 				enableHighAccuracy: true,
 			})
 			.on("locationfound", (e: any) => {
+				var radius = e.accuracy;
 				this.newMarker = L.marker([e.latitude, e.longitude], {
 					draggable: false,
 				}).addTo(this.map);
-				this.newMarker.bindPopup("You are located here!").openPopup();
+
+				this.newMarker.bindPopup("Je suis ici !!!").openPopup();
+
+				L.circle([e.latitude, e.longitude], radius).addTo(this.map);
 
 				this.newMarker.on("dragend", () => {
 					const position = this.newMarker.getLatLng();
 				});
 			});
+	}
+
+	loadLocateMap() {
+		this.map = new L.Map("mapId").setView([50.64, 5.576], 16);
+		this.mainLayer.addTo(this.map);
+		this.locatePosition();
 	}
 
 	// locate() {
@@ -95,11 +149,16 @@ export class StonePage implements OnInit {
 	//   alert(e.message);
 	// }
 
+	ionViewWillEnter() {
+		console.log("willEnter");
+	}
+
 	ionViewDidEnter() {
-		this.loadMap();
+		console.log("didEnter");
+		this.loadLocateMap();
 
 		// raccourci très pratique pour zoomer la vue de la carte à l'emplacement détecté
-		this.locatePosition();
+		//this.locatePosition();
 
 		//this.map.on("locationerror", this.onLocationError);
 
@@ -107,7 +166,23 @@ export class StonePage implements OnInit {
 		//this.map.setView([0,0],0);
 	}
 
-	ionViewWillLeave() {
-		this.map.remove();
+	ionViewWillLeave(event: CustomEvent<SegmentChangeEventDetail>) {
+		console.log("willleave");
+		//console.log(this.map);
+		if (this.map !== undefined) {
+			this.map.remove();
+			//console.log(this.map);
+		}
+	}
+
+	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
+		//console.log(event.detail);
+		if (event.detail.value === "map") {
+			//this.map.remove();
+			//this.loadMap();
+			this.loadLocateMap();
+		} else if (event.detail.value === "stones-list") {
+			this.map.remove();
+		}
 	}
 }

@@ -13,6 +13,6 @@ import { StonePage } from "./stone.page";
 @NgModule({
 	imports: [CommonModule, FormsModule, IonicModule, StonePageRoutingModule],
 	declarations: [StonePage, HereMapComponent],
-	exports: [HereMapComponent, StonePage],
+	exports: [HereMapComponent],
 })
 export class StonePageModule {}
