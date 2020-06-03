@@ -45,6 +45,6 @@
     </ion-card>
   </div>
 
-  <div id="mapId" style="width: 100%; height: 93%"></div>
+  <div id="mapId" style="width: 100%; height: 93%" [ngClass]="{ 'hide': segmentModel != 'map' }"></div>
 
 </ion-content>
