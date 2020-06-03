@@ -1,9 +1,59 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>stone-details</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/stone/stone-lists"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ stone?.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
+  <div *ngIf="stone">
+    <img [src]="stone.photo" [style.width]="'100%'" *ngIf="stone.photo">
+    <div [innerHTML]="stone.nom"></div>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          Données de la pierre {{ stone.title }}
+        </ion-label>
+      </ion-list-header>
+      <ion-label>
+        <p>latitude : {{ stone.latitude }}</p>
+      </ion-label>
+      <ion-label>
+        <p>latitude : {{ stone.latitude }}</p>
+      </ion-label>
+    </ion-list>
+    
+  </div>
+
+  <!-- <ion-item>
+    <ion-label position="floating">My comment</ion-label>
+    <ion-textarea rows="5" [(ngModel)]="newComment"></ion-textarea>
+  </ion-item>
+  <ion-button expand="full" (click)="addComment()" [disabled]="newComment == ''">Add comment</ion-button> -->
+
+  <!-- <ion-list>
+    <ion-list-header>
+      <ion-label>Comments</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let com of comments">
+      <ion-avatar slot="start">
+        <img [src]="com.author_avatar_urls['96']">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ com.author_name }}</h2>
+        <p [innerHTML]="com.content.rendered"></p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
 </ion-content>
+
+<ion-footer>
+  <!-- <ion-toolbar color="primary"> -->
+    <!-- <ion-button color="light" expand="full" fill="clear" (click)="sharePost()">
+      <ion-icon name="share" slot="start"></ion-icon> Share
+    </ion-button> -->
+  <!-- </ion-toolbar> -->
+</ion-footer>

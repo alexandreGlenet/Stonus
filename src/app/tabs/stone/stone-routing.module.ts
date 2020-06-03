@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'stones/:id',
     loadChildren: () => import('./stone-details/stone-details.module').then( m => m.StoneDetailsPageModule)
+  },
+  {
+    path: 'pickup-location',
+    loadChildren: () => import('./pickup-location/pickup-location.module').then( m => m.PickupLocationPageModule)
   }
 ];
 

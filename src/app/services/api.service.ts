@@ -42,4 +42,18 @@ export class ApiService {
         })
       );
   }
+
+  getStoneContent(id) {
+    return this.http.get<any>(`${environment.authUrl}/stonus/v1/stones/${id}`).pipe(
+      map(stone => {
+        if (stone.photo) {
+          stone.photo =
+            stone.photo.sizes[
+            "medium"
+            ];
+        }
+        return stone;
+      })
+    );
+  }
 }

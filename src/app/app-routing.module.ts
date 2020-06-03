@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'tabs/tabs/stone',
+    redirectTo: 'tabs/stone/stone-lists',
     pathMatch: 'full'
   },
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/stones-details/stones-details.module').then( m => m.StonesDetailsPageModule)
   },
   {
-    path: 'tabs',
+    path: '',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   },
 ];
