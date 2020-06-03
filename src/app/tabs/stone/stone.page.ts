@@ -29,7 +29,8 @@ export class StonePage implements OnInit {
 
 	mainLayer = L.tileLayer(
 		//http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png
-		"http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png",
+		//https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png
+		"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 		{
 			attribution:
 				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
