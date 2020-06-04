@@ -8,6 +8,7 @@ import * as L from "leaflet";
 //import { antPath } from "leaflet-ant-path";
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
+import { getInterpolationArgsLength } from "@angular/compiler/src/render3/view/util";
 
 @Component({
 	selector: "app-stone",
@@ -18,7 +19,7 @@ export class StonePage implements OnInit {
 	//Map
 	map: L.Map;
 	newMarker: any;
-	address: string[];
+	location: string[];
 
 	smallIcon = new L.Icon({
 		iconUrl:
@@ -132,6 +133,11 @@ export class StonePage implements OnInit {
 				alert(e.message);
 				console.log(e.message);
 			});
+	}
+
+	positionLocation() {
+		const location = this.newMarker.getLatLng();
+		console.log(location);
 	}
 
 	loadLocateMap() {
