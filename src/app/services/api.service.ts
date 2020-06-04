@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, BehaviorSubject, from } from "rxjs";
 import { map, switchMap, tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
+import { Storage } from "@ionic/storage";
 
 const JWT_KEY = "my_token";
 
@@ -73,7 +74,7 @@ export class ApiService {
 
 	// AUTH & USER
 
-	signIn(username, password) {
+	signIn(username: any, password: any) {
 		return this.http
 			.post(`${environment.authUrl}/jwt-auth/v1/token`, { username, password })
 			.pipe(
