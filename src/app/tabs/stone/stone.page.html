@@ -1,56 +1,87 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Stone</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>Stone</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
+	<ion-segment
+		value="map"
+		(ionChange)="onFilterUpdate($event)"
+		[(ngModel)]="segmentModel"
+	>
+		<ion-segment-button value="map">
+			<ion-label>Stones's map</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="stones-list">
+			<ion-label>Stones's list</ion-label>
+		</ion-segment-button>
+	</ion-segment>
 
-  <ion-segment value="map" (ionChange)="onFilterUpdate($event)" [(ngModel)]="segmentModel">
-    <ion-segment-button value="map">
-      <ion-label>Stones's map</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="stones-list">
-      <ion-label>Stones's list</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+	<div *ngIf="segmentModel === 'stones-list'">
+		<div *ngIf="totalStones > 0" class="ion-text-center ion-padding">
+			Found {{ totalStones }}
+		</div>
 
-  <div *ngIf="segmentModel === 'stones-list'">
-    <div *ngIf="totalStones > 0" class="ion-text-center ion-padding">
-      Found {{ totalStones }}
-    </div>
+		<ion-card *ngFor="let stone of stones">
+			<ion-card-header>
+				<ion-card-title [innerHTML]="stone.title"></ion-card-title>
+				<ion-card-subtitle>{{ stone.created_at }}</ion-card-subtitle>
+				<ion-label>
+					latitude : {{ stone.latitude }}
+				</ion-label>
+			</ion-card-header>
+			<ion-card-content>
+				<img [src]="stone.photo" *ngIf="stone.photo" class="post-img" />
+				<!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
+				<ion-button
+					expand="full"
+					fill="clear"
+					[routerLink]="['/', 'tabs','stone','stones', stone.id]"
+					text-right
+					(click)="onStoneDetails()"
+					>Read More...</ion-button
+				>
+			</ion-card-content>
+		</ion-card>
+	</div>
 
-    <ion-card *ngFor="let stone of stones">
-      <ion-card-header>
-        <ion-card-title [innerHTML]="stone.title"></ion-card-title>
-        <ion-card-subtitle>{{ stone.created_at  }}</ion-card-subtitle>
-        <ion-label>
-          latitude : {{ stone.latitude }}
-        </ion-label>
-      </ion-card-header>
-      <ion-card-content>
-        <img [src]="stone.photo" *ngIf="stone.photo" class="post-img">
-        <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
-        <ion-button expand="full" fill="clear" [routerLink]="['/', 'tabs','stone','stones', stone.id]" text-right
-          (click)="onStoneDetails()">Read
-          More...</ion-button>
-      </ion-card-content>
-    </ion-card>
-  </div>
+	<div id="mapId" [ngClass]="{ 'hide': segmentModel != 'map' }"></div>
+	<ion-footer>
+		<div *ngIf="segmentModel === 'map'">
+			<ion-grid>
+				<ion-row>
+					<ion-col size="6">
+						<ion-item style="cursor: pointer;" (click)="locatePosition()">
+							<ion-button fill="clear">
+								<ion-icon slot="start" name="map"></ion-icon>
+								Locate Position
+							</ion-button>
+						</ion-item>
+					</ion-col>
+					<ion-col size="6">
+						<ion-item>
+							<ion-icon slot="start" name="locate"></ion-icon>
+							<ion-label position="stacked">Address</ion-label>
+							<ion-textarea
+								[(ngModel)]="address"
+								type="text"
+								style="margin-top: 20px;"
+							></ion-textarea>
+						</ion-item>
+					</ion-col>
+					<ion-col>
+						<ion-button
+							shape="round"
+							expand="block"
+							(click)="confirmPickupLocation()"
+							>Confirm Pickup Location
+						</ion-button>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+	</ion-footer>
 
-  <div id="mapId" [ngClass]="{ 'hide': segmentModel != 'map' }"></div>
-  <ion-footer>
-    <div *ngIf="segmentModel === 'map'">
-      <ion-item style="cursor: pointer" (click)="locatePosition()">
-        <ion-button fill="clear">
-          <ion-icon slot="start" name="map"></ion-icon>
-          Locate Position
-        </ion-button>
-      </ion-item>
-    </div>
-  </ion-footer>
-
-
-  <!-- [ngClass]="{ 'hide': segmentModel != 'map' }" -->
-
+	<!-- [ngClass]="{ 'hide': segmentModel != 'map' }" -->
 </ion-content>

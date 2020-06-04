@@ -140,6 +140,8 @@ export class StonePage implements OnInit {
 		this.locatePosition();
 	}
 
+	confirmPickupLocation() {}
+
 	ionViewWillEnter() {
 		//console.log("willEnter-stone.page");
 	}
