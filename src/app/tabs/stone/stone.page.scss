@@ -5,11 +5,16 @@ body {
 
 html,
 body,
-#map {
-    height: 100%;
-    width: 100vw;
+#mapId {
+    //display: initial;
+    height: 81%;
+    width: 100%;
 }
 
 .hide {
     display: none !important;
 }
+
+// #mapId {
+//     display: block;
+// }

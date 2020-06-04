@@ -57,6 +57,7 @@ export class StonePage implements OnInit {
 	//Segment
 	segmentModel = "map";
 
+	//Je viens de stone-list
 	DetailsIsActive = false;
 
 	constructor(

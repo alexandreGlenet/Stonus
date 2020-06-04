@@ -38,7 +38,19 @@
     </ion-card>
   </div>
 
-  <div id="mapId" style="width: 100%; height: 93%" [ngClass]="{ 'hide': segmentModel != 'map' }"></div>
+  <div id="mapId" [ngClass]="{ 'hide': segmentModel != 'map' }"></div>
+  <ion-footer>
+    <div *ngIf="segmentModel === 'map'">
+      <ion-item style="cursor: pointer" (click)="locatePosition()">
+        <ion-button fill="clear">
+          <ion-icon slot="start" name="map"></ion-icon>
+          Locate Position
+        </ion-button>
+      </ion-item>
+    </div>
+  </ion-footer>
+
+
   <!-- [ngClass]="{ 'hide': segmentModel != 'map' }" -->
 
 </ion-content>

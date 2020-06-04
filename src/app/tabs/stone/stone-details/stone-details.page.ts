@@ -51,7 +51,7 @@ export class StoneDetailsPage implements OnInit {
 	ionViewDidEnter() {
 		console.log("didEnter-stone-detail.page");
 		//this.map.remove();
-		console.log(this.map);
+		//console.log(this.map);
 	}
 
 	// async sharePost() {

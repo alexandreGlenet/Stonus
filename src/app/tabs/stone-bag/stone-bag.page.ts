@@ -27,16 +27,16 @@ export class StoneBagPage implements OnInit {
 	ngOnInit() {}
 
 	ionViewWillEnter() {
-		console.log("willEnter");
+		//console.log("willEnter");
 	}
 
 	ionViewDidEnter() {
-		console.log("didEnter");
-		console.log(this.map);
+		//console.log("didEnter");
+		//console.log(this.map);
 	}
 
 	ionViewWillLeave() {
-		console.log("willleave");
+		//console.log("willleave");
 		//console.log(this.map);
 	}
 
