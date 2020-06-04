@@ -8,23 +8,6 @@ const routes: Routes = [
 		pathMatch: "full",
 	},
 	{
-		path: "stones",
-		loadChildren: () =>
-			import("./pages/stones/stones.module").then((m) => m.StonesPageModule),
-	},
-	{
-		path: "account",
-		loadChildren: () =>
-			import("./pages/account/account.module").then((m) => m.AccountPageModule),
-	},
-	{
-		path: "stones-details",
-		loadChildren: () =>
-			import("./pages/stones-details/stones-details.module").then(
-				(m) => m.StonesDetailsPageModule
-			),
-	},
-	{
 		path: "",
 		loadChildren: () =>
 			import("./tabs/tabs.module").then((m) => m.TabsPageModule),
