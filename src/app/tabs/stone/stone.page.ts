@@ -140,14 +140,15 @@ export class StonePage implements OnInit {
 	}
 
 	ionViewWillEnter() {
-		console.log("willEnter-stone.page");
+		//console.log("willEnter-stone.page");
 	}
 
 	ionViewDidEnter() {
 		console.log("didEnter-stone.page");
-		this.loadLocateMap();
+		this.loadLocateMap(); // 2- je charge sur "map"
 		console.log(this.DetailsIsActive);
 		if (this.DetailsIsActive === true) {
+			// 3 - si je viens détails, réaffiche moi "stones-list". et donc plus de probleme d'affichage.
 			this.segmentModel = "stones-list";
 			this.DetailsIsActive = false;
 		}
@@ -158,11 +159,10 @@ export class StonePage implements OnInit {
 	ionViewWillLeave() {
 		console.log("willleave-stone.page");
 		//console.log(this.map);
-		this.segmentModel = "map";
+		this.segmentModel = "map"; // 1 - Quand je sors je reidrige vers map pour qu'au chargement de la map il n'yai pas de probleme graphique
+
 		if (this.map !== undefined) {
 			this.map.remove();
-			//this.map = null;
-			//console.log(this.map);
 		} else {
 			//this.map.remove();
 		}
@@ -176,13 +176,14 @@ export class StonePage implements OnInit {
 
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
 		//console.log(event.detail);
-		if (event.detail.value == "stones-list") {
-			console.log(event.detail.value);
-		} else {
-			console.log(event.detail.value);
-		}
+		// if (event.detail.value == "stones-list") {
+		// 	console.log(event.detail.value);
+		// } else {
+		// 	console.log(event.detail.value);
+		// }
 	}
 
+	// Fonction qui permet de d'avoir un boolean pour voir si je viens de la liste quand je vais sur le detail d'une pierre.
 	onStoneDetails() {
 		this.DetailsIsActive = true;
 	}
