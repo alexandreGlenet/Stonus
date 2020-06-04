@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <ion-segment id="positionInitiale" value="map" (ionChange)="onFilterUpdate($event)" [(ngModel)]="segmentModel">
+  <ion-segment value="map" (ionChange)="onFilterUpdate($event)" [(ngModel)]="segmentModel">
     <ion-segment-button value="map">
       <ion-label>Stones's map</ion-label>
     </ion-segment-button>
@@ -14,14 +14,6 @@
       <ion-label>Stones's list</ion-label>
     </ion-segment-button>
   </ion-segment>
-
-
-
-
-
-
-
-
 
   <div *ngIf="segmentModel === 'stones-list'">
     <div *ngIf="totalStones > 0" class="ion-text-center ion-padding">
@@ -39,12 +31,14 @@
       <ion-card-content>
         <img [src]="stone.photo" *ngIf="stone.photo" class="post-img">
         <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
-        <ion-button expand="full" fill="clear" [routerLink]="['/', 'tabs','stone','stones', stone.id]" text-right>Read
+        <ion-button expand="full" fill="clear" [routerLink]="['/', 'tabs','stone','stones', stone.id]" text-right
+          (click)="onStoneDetails()">Read
           More...</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
 
   <div id="mapId" style="width: 100%; height: 93%" [ngClass]="{ 'hide': segmentModel != 'map' }"></div>
+  <!-- [ngClass]="{ 'hide': segmentModel != 'map' }" -->
 
 </ion-content>

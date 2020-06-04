@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { SegmentChangeEventDetail } from "@ionic/core";
 import { ApiService } from "src/app/services/api.service";
 import { LoadingController } from "@ionic/angular";
+import { ChangeDetectorRef } from "@angular/core";
 
 import * as L from "leaflet";
 //import { antPath } from "leaflet-ant-path";
@@ -56,9 +57,12 @@ export class StonePage implements OnInit {
 	//Segment
 	segmentModel = "map";
 
+	DetailsIsActive = false;
+
 	constructor(
 		private api: ApiService,
-		private loadingCtrl: LoadingController
+		private loadingCtrl: LoadingController,
+		private cf: ChangeDetectorRef
 	) {}
 
 	ngOnInit() {
@@ -109,7 +113,10 @@ export class StonePage implements OnInit {
 				this.newMarker = L.marker([e.latitude, e.longitude], {
 					draggable: false,
 				}).addTo(this.map);
-
+				// Recupérer la position du marqueur
+				const position = this.newMarker.getLatLng();
+				console.log(position);
+				// {lat: 50.5876328, lng: 5.6089782} => Noomia
 				this.newMarker
 					.bindPopup("Je suis à !!!" + radius + " metres de ce point")
 					.openPopup();
@@ -139,12 +146,19 @@ export class StonePage implements OnInit {
 	ionViewDidEnter() {
 		console.log("didEnter-stone.page");
 		this.loadLocateMap();
-		console.log(this.map);
+		console.log(this.DetailsIsActive);
+		if (this.DetailsIsActive === true) {
+			this.segmentModel = "stones-list";
+			this.DetailsIsActive = false;
+		}
+		//console.log(this.map);
+		console.log(this.segmentModel);
 	}
 
 	ionViewWillLeave() {
 		console.log("willleave-stone.page");
 		//console.log(this.map);
+		this.segmentModel = "map";
 		if (this.map !== undefined) {
 			this.map.remove();
 			//this.map = null;
@@ -162,5 +176,14 @@ export class StonePage implements OnInit {
 
 	onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
 		//console.log(event.detail);
+		if (event.detail.value == "stones-list") {
+			console.log(event.detail.value);
+		} else {
+			console.log(event.detail.value);
+		}
+	}
+
+	onStoneDetails() {
+		this.DetailsIsActive = true;
 	}
 }
