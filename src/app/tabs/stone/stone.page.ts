@@ -136,8 +136,8 @@ export class StonePage implements OnInit {
 	}
 
 	positionLocation() {
-		const location = this.newMarker.getLatLng();
-		console.log(location);
+		this.location = this.newMarker.getLatLng();
+		console.log(this.location);
 	}
 
 	loadLocateMap() {
