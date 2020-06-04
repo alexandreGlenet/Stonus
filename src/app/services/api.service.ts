@@ -1,59 +1,121 @@
 import { environment } from "./../../environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable, BehaviorSubject, from } from "rxjs";
+import { map, switchMap, tap } from "rxjs/operators";
+import { Platform } from "@ionic/angular";
+
+const JWT_KEY = "my_token";
 
 @Injectable({
-  providedIn: "root",
+	providedIn: "root",
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+	private user = new BehaviorSubject(null);
 
-  getStones(page = 1): Observable<any> {
-    let options = {
-      observe: "response" as "body",
-      params: {
-        per_page: "5",
-        page: "" + page,
-      },
-    };
+	constructor(
+		private http: HttpClient,
+		private storage: Storage,
+		private plt: Platform
+	) {
+		this.plt.ready().then(() => {
+			this.storage.get(JWT_KEY).then((data) => {
+				if (data) {
+					console.log("JWT from storage: ", data);
+					this.user.next(data);
+				}
+			});
+		});
+	}
 
-    return this.http
-      .get<any[]>(`${environment.authUrl}/stonus/v1/stones`, options)
-      .pipe(
-        map((res) => {
-          let data = res["body"];
+	getStones(page = 1): Observable<any> {
+		let options = {
+			observe: "response" as "body",
+			params: {
+				per_page: "5",
+				page: "" + page,
+			},
+		};
 
-          for (let stone of data) {
-            if (stone.photo) {
-              stone.photo =
-                stone.photo.sizes[
-                  "medium"
-                ];
-            }
-          }
+		return this.http
+			.get<any[]>(`${environment.authUrl}/stonus/v1/stones`, options)
+			.pipe(
+				map((res) => {
+					let data = res["body"];
 
-          return {
-            stones: data,
-            pages: res["headers"].get("x-wp-totalpages"),
-            totalStones: res["headers"].get("x-wp-total"),
-          };
-        })
-      );
-  }
+					for (let stone of data) {
+						if (stone.photo) {
+							stone.photo = stone.photo.sizes["medium"];
+						}
+					}
 
-  getStoneContent(id) {
-    return this.http.get<any>(`${environment.authUrl}/stonus/v1/stones/${id}`).pipe(
-      map(stone => {
-        if (stone.photo) {
-          stone.photo =
-            stone.photo.sizes[
-            "medium"
-            ];
-        }
-        return stone;
-      })
-    );
-  }
+					return {
+						stones: data,
+						pages: res["headers"].get("x-wp-totalpages"),
+						totalStones: res["headers"].get("x-wp-total"),
+					};
+				})
+			);
+	}
+
+	getStoneContent(id) {
+		return this.http
+			.get<any>(`${environment.authUrl}/stonus/v1/stones/${id}`)
+			.pipe(
+				map((stone) => {
+					if (stone.photo) {
+						stone.photo = stone.photo.sizes["medium"];
+					}
+					return stone;
+				})
+			);
+	}
+
+	// AUTH & USER
+
+	signIn(username, password) {
+		return this.http
+			.post(`${environment.authUrl}/jwt-auth/v1/token`, { username, password })
+			.pipe(
+				switchMap((data) => {
+					console.log("got token: ", data);
+					return from(this.storage.set(JWT_KEY, data));
+				}),
+				tap((data) => {
+					this.user.next(data);
+				})
+			);
+	}
+
+	getPrivatePosts() {
+		return this.http
+			.get<any[]>(`${environment.apiUrl}/posts?_embed&status=private`)
+			.pipe(
+				map((data) => {
+					for (let post of data) {
+						if (post["_embedded"]["wp:featuredmedia"]) {
+							post.media_url =
+								post["_embedded"]["wp:featuredmedia"][0]["media_details"].sizes[
+									"medium"
+								].source_url;
+						}
+					}
+					return data;
+				})
+			);
+	}
+
+	getCurrentUser() {
+		return this.user.asObservable();
+	}
+
+	getUserValue() {
+		return this.user.getValue();
+	}
+
+	logout() {
+		this.storage.remove(JWT_KEY).then(() => {
+			this.user.next(null);
+		});
+	}
 }
