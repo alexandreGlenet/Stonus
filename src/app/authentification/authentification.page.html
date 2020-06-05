@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="userForm" (ngSubmit)="login()">
+  <form [formGroup]="userForm" (ngSubmit)="onLogin()">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input formControlName="username"></ion-input>

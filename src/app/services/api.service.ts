@@ -13,6 +13,11 @@ const JWT_KEY = "my_token";
 })
 export class ApiService {
 	private user = new BehaviorSubject(null);
+	private _userIsAuthenticated = false;
+
+	get userIsAuthenticated() {
+		return this._userIsAuthenticated;
+	}
 
 	constructor(
 		private http: HttpClient,
@@ -74,7 +79,7 @@ export class ApiService {
 
 	// AUTH & USER
 
-	signIn(username: any, password: any) {
+	login(username: any, password: any) {
 		return this.http
 			.post(`${environment.authUrl}/jwt-auth/v1/token`, { username, password })
 			.pipe(
@@ -86,6 +91,11 @@ export class ApiService {
 					this.user.next(data);
 				})
 			);
+		this._userIsAuthenticated = true;
+	}
+
+	ActivateUserIsAuthenticated() {
+		this._userIsAuthenticated = true;
 	}
 
 	getPrivatePosts() {
@@ -115,6 +125,7 @@ export class ApiService {
 	}
 
 	logout() {
+		this._userIsAuthenticated = false;
 		this.storage.remove(JWT_KEY).then(() => {
 			this.user.next(null);
 		});
