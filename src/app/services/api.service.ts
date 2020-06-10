@@ -1,6 +1,6 @@
 import { environment } from "./../../environments/environment";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, BehaviorSubject, from } from "rxjs";
 import { map, switchMap, tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
@@ -18,6 +18,9 @@ export class ApiService {
 	get userIsAuthenticated() {
 		return this._userIsAuthenticated;
 	}
+
+	currentUser = this.getUserValue();
+	token: string;
 
 	constructor(
 		private http: HttpClient,
@@ -41,6 +44,10 @@ export class ApiService {
 				per_page: "5",
 				page: "" + page,
 			},
+			headers: new HttpHeaders({
+				"Content-Type": "application/json; charset=utf-8",
+				Authorization: "Bearer " + this.getUserToken(),
+			}),
 		};
 
 		return this.http
@@ -122,6 +129,10 @@ export class ApiService {
 
 	getUserValue() {
 		return this.user.getValue();
+	}
+
+	getUserToken() {
+		return this.user.getValue().token;
 	}
 
 	logout() {
