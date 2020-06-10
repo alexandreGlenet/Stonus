@@ -68,7 +68,10 @@ export class StonePage implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.loadStones();
+		console.log(this.api.getUserToken());
+		if (this.api.getCurrentUser() && this.api.getUserToken()) {
+			this.loadStones();
+		}
 	}
 
 	async loadStones() {

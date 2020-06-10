@@ -84,6 +84,55 @@ export class ApiService {
 			);
 	}
 
+	// USERS
+
+	getUsers(page = 1): Observable<any> {
+		let options = {
+			observe: "response" as "body",
+			params: {
+				per_page: "5",
+				page: "" + page,
+			},
+			headers: new HttpHeaders({
+				"Content-Type": "application/json; charset=utf-8",
+				Authorization: "Bearer " + this.getUserToken(),
+			}),
+		};
+
+		return this.http
+			.get<any[]>(`${environment.authUrl}/stonus/v1/users`, options)
+			.pipe(
+				map((res) => {
+					let data = res["body"];
+
+					for (let user of data) {
+						if (user.photo) {
+							user.photo = user.photo.sizes["medium"];
+						}
+					}
+
+					return {
+						users: data,
+						pages: res["headers"].get("x-wp-totalpages"),
+						totalUsers: res["headers"].get("x-wp-total"),
+					};
+				})
+			);
+	}
+
+	getUserContent(id) {
+		return this.http
+			.get<any>(`${environment.authUrl}/stonus/v1/users/${id}`)
+			.pipe(
+				map((user) => {
+					if (user.photo) {
+						user.photo = user.photo.sizes["medium"];
+					}
+					return user;
+				})
+			);
+	}
+
 	// AUTH & USER
 
 	login(username: any, password: any) {
