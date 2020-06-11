@@ -21,6 +21,7 @@ export class ApiService {
 
 	currentUser = this.getUserValue();
 	token: string;
+	//currentUserId = this.getUserId();
 
 	constructor(
 		private http: HttpClient,
@@ -132,6 +133,19 @@ export class ApiService {
 				})
 			);
 	}
+	//private currentUserId = this.getUserId();
+	getCurrentUserContent(id) {
+		return this.http
+			.get<any>(`${environment.authUrl}/stonus/v1/users/${id}`)
+			.pipe(
+				map((user) => {
+					if (user.photo) {
+						user.photo = user.photo.sizes["medium"];
+					}
+					return user;
+				})
+			);
+	}
 
 	// AUTH & USER
 
@@ -182,6 +196,10 @@ export class ApiService {
 
 	getUserToken() {
 		return this.user.getValue().token;
+	}
+
+	getUserId() {
+		return this.user.getValue().id;
 	}
 
 	logout() {

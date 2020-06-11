@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Profile-lists</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let user of users">
+    <ion-card-header>
+      <ion-card-title [innerHTML]="user.username"></ion-card-title>
+      <ion-card-subtitle>{{ user.nom  }}</ion-card-subtitle>
+      <ion-label>
+        latitude : {{ user.prenom }}
+      </ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="user.photo" *ngIf="user.photo" class="post-img">
+      <!-- <div [innerHTML]="stone.excerpt.rendered"></div> -->
+      <!-- <ion-button expand="full" fill="clear" [routerLink]="['/', 'tabs','stone','stones', user.id]" text-right>Read
+        More...</ion-button> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>
