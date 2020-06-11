@@ -151,6 +151,7 @@ add_action('rest_api_init', function () {
         $params = $request->get_params();
         $user_id = isset($params['user_id']) ? esc_sql($params['user_id']) : null;
         $users = get_users();
+        
 
  
 
@@ -161,10 +162,10 @@ add_action('rest_api_init', function () {
                 'prenom' => get_field('first_name', $user),
                 'nom' => get_field('last_name', $user),
                 'photo' => [
-                    'alt' => get_field('photo', $user_id)['alt'],
+                    //'alt' => get_field('photo', $user_id)['alt'],
                     'sizes' => [
-                        'thumbnail' => get_field('photo', $user_id)['sizes']['thumbnail'],
-                        'medium' => get_field('photo', $user_id)['sizes']['medium'],
+                        'thumbnail' => get_field('photo', 'user_' . $user->id)['sizes']['thumbnail'],
+                        'medium' => get_field('photo', 'user_' . $user->id)['sizes']['medium'],
                     ],
                 ],
                 //'bag' => get_field('acf', $stone)['bag'],
@@ -193,6 +194,26 @@ add_action('rest_api_init', function () {
         $userdata = get_userdata($user_id);
         //return $userdata; // Pour voir tout ce que retourne data dans postman !!!!!!
         if ($user_id) {
+
+            $user_stones_ids =  get_field('bag', 'user_' . $user_id);
+            $user_stones = [];
+            foreach ($user_stones_ids as $user_stone) {
+            $user_stones[] = [
+                'id' => $user_stone,
+                'title' => get_the_title($user_stone),
+                'latitude' => get_field('latitude', $user_stone),
+                'photo' => [
+                    'alt' => get_field('photo', $user_stone)['alt'],
+                    'sizes' => [
+                        'thumbnail' => get_field('photo', $user_stone)['sizes']['thumbnail'],
+                        'medium' => get_field('photo', $user_stone)['sizes']['medium'],
+                    ],
+                ],
+                'created_at' => get_the_date('Y-m-d', $user_stone),
+
+            ];
+            }
+
             $data = [
                 'id' => $user_id ,
                 'userlogin'  => $userdata->user_login,
@@ -202,11 +223,12 @@ add_action('rest_api_init', function () {
                 'fullname'   => $userdata->display_name,
                 'email'      => $userdata->user_email,
                 'created_at' => $userdata->user_registered,
+                'user_stone' => $user_stones,
                 'photo' => [
-                    'alt' => get_field('photo', $user_id)['alt'],
+                    //'alt' => get_field('photo', $user_id)['alt'],
                     'sizes' => [
-                        'thumbnail' => get_field('photo', $userdata)['sizes']['thumbnail'],
-                        'medium'    => get_field('photo', $userdata)['sizes']['medium'],
+                        'thumbnail' => get_field('photo', 'user_' . $user_id)['sizes']['thumbnail'],
+                        'medium'    => get_field('photo', 'user_' . $user_id)['sizes']['medium'],
                     ],
                 ],
                 //'bag' => get_field('acf', $stone)['bag'],

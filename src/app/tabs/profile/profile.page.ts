@@ -42,6 +42,8 @@ export class ProfilePage implements OnInit {
 			this.user = res;
 			if (this.user.photo == null) {
 				this.user.photo = "../assets/img/no-image.png";
+			} else {
+				//this.user.photo = this.user.photo.sizes.medium;
 			}
 		});
 	}

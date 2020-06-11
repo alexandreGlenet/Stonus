@@ -47,9 +47,16 @@
       <ion-label>
         <p>Date de création : {{ user.created_at }}</p>
       </ion-label>
+
+      <!-- <ion-label>
+        <p>Bag : {{ user.user_stone }}</p>
+      </ion-label> -->
     </ion-list>
 
   </div>
+  <ion-card *ngFor="let stone of user?.user_stone">
+    <p>Bag : {{ stone.title }}</p>
+  </ion-card>
 
   <!-- <ion-item>
     <ion-label position="floating">My comment</ion-label>
