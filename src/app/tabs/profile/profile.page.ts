@@ -38,8 +38,11 @@ export class ProfilePage implements OnInit {
 		// }
 		let id = this.api.getUserId();
 		this.api.getUserContent(id).subscribe((res) => {
-			console.log("User: ", res);
+			console.log("user: ", res);
 			this.user = res;
+			if (this.user.photo == null) {
+				this.user.photo = "../assets/img/no-image.png";
+			}
 		});
 	}
 

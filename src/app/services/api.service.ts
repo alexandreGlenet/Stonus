@@ -130,19 +130,9 @@ export class ApiService {
 					if (user.photo) {
 						user.photo = user.photo.sizes["medium"];
 					}
-					return user;
-				})
-			);
-	}
-	//private currentUserId = this.getUserId();
-	getCurrentUserContent(id) {
-		return this.http
-			.get<any>(`${environment.authUrl}/stonus/v1/users/${id}`)
-			.pipe(
-				map((user) => {
-					if (user.photo) {
-						user.photo = user.photo.sizes["medium"];
-					}
+					// else {
+					// 	user.photo.sizes["medium"] = "../assets/img/no-image.jpg";
+					// }
 					return user;
 				})
 			);
@@ -229,6 +219,8 @@ export class ApiService {
 				})
 			);
 	}
+
+	// UTILITAIRES
 
 	getCurrentUser() {
 		return this.user.asObservable();
