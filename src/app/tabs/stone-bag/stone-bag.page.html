@@ -1,9 +1,37 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>stone-bag</ion-title>
+    <ion-title>Mon sac de pierres</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h2>Toutes les pierres de mon sac</h2>
+  <ion-grid>
+    <ion-row class="flex">
+      <div *ngFor="let stone of user?.user_stone">
+        <div>
+          <ion-col size="6">
+            <!-- <ion-list> -->
+            <!-- <div class="header">
+              <h2>{{ stone.title }}</h2>
+            </div> -->
+            <div class="border-color">
+              <div class="border-white">
+                <ion-avatar>
+                  <img [src]="stone.photo.sizes['medium']" [style.width]="'100%'" *ngIf="stone.photo.sizes.medium">
+                </ion-avatar>
+              </div>
+            </div>
+            <!-- </ion-list> -->
+          </ion-col>
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
