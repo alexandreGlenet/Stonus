@@ -62,6 +62,12 @@ add_action('rest_api_init', function () {
         },
     ));
 
+    // CREATE USER
+    register_rest_route('stonus/v1', 'users/register', array(
+        'methods' => 'POST',
+        'callback' => 'alx_create_user',
+    ));
+
     
 
     // FUNCTIONS -----------------------------------------------------------------------------------------------------------
@@ -218,6 +224,102 @@ add_action('rest_api_init', function () {
             $data['id'] = $user_id;
             return $data;
     }
+
+    // CREATE USER
+
+    function alx_create_user(WP_REST_Request $request)
+{
+    $params = $request->get_body_params();
+    $errors = new WP_Error();
+
+    $email = isset($params['email']) ? $params['email'] : null;
+    $password = isset($params['password']) ? $params['password'] : null;
+    $firstname = isset($params['firstname']) ? $params['firstname'] : null;
+    $lastname = isset($params['lastname']) ? $params['lastname'] : null;
+    $lang = isset($params['lang']) ? $params['lang'] : null;
+    $username = isset($params['username']) ? $params['username'] : null;
+
+    /**
+     * Data validations
+     */
+    if (!$email || $email == '') {
+        $errors->add('empty', 'Email is required');
+    } else {
+        if (!is_email($email) || email_exists($email)) {
+            $errors->add('invalid', 'Email is not valid');
+        }
+    }
+
+    if (!$password || $password == '') {
+        $errors->add('empty', 'Password is required');
+    } else {
+        if (strlen($password) < 5) {
+            $errors->add('invalid', 'Password is too short');
+        }
+    }
+
+    // if (!$firstname || $firstname == '') {
+    //     $errors->add('empty', 'Firstname is required');
+    // }
+
+    // if (!$lastname || $lastname == '') {
+    //     $errors->add('empty', 'Name is required');
+    // }
+
+    if (!$username || $username == '') {
+        $errors->add('empty', 'Username is required');
+    }
+
+    if ($lang !== null) {
+        if (!is_string($lang) || $lang == '' || strlen($lang) != 2) {
+            $errors->add('invalid', 'Language format is not valid');
+        } else {
+            if (!in_array($lang, $all_languages)) {
+                $errors->add('not found', 'This language is not available');
+            }
+        }
+    } else {
+        $lang = 'fr'; // Default lang
+    }
+
+    /**
+     * Errors checking
+     */
+    if (!empty($errors->get_error_codes())) {
+        return $errors;
+    }
+
+    /**
+     * Create User
+     */
+    //$username = $email;
+    $user_id = wp_insert_user([
+        'user_login' => $username,
+        'user_pass' => $password,
+        'user_email' => $email,
+        'first_name' => $firstname,
+        'last_name' => $lastname,
+        'role' => 'hunters',
+    ]);
+
+    if (is_wp_error($user_id)) {
+        $errors->add('unknow', 'A problem occurred while creating the user');
+        return $errors;
+    }
+
+    // Set lang
+    update_field('lang', $lang, 'user_' . $user_id);
+
+    $userdata = get_userdata($user_id);
+    $return = [
+        'user_id' => $user_id,
+        'username' => $userdata->user_login,
+        'user_email' => $userdata->user_email,
+    ];
+
+    return new WP_REST_Response($return, 200);
+}
+
 
 
     // SPECIAL ME RAPPELLER A QUOI CA SERT

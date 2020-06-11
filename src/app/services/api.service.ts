@@ -1,10 +1,11 @@
 import { environment } from "./../../environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, BehaviorSubject, from } from "rxjs";
+import { Observable, BehaviorSubject, from, of } from "rxjs";
 import { map, switchMap, tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
+import { ICreationUser } from "../shared/auth.interfaces";
 
 const JWT_KEY = "my_token";
 
@@ -162,6 +163,49 @@ export class ApiService {
 				})
 			);
 		this._userIsAuthenticated = true;
+	}
+
+	// signUp(username, email, password) {
+	// 	return this.http.post(`${environment.authUrl}/stonus/v1/users/register`, {
+	// 		username,
+	// 		email,
+	// 		password,
+	// 	});
+	// }
+
+	/**
+	 * Register a user
+	 * @param creation
+	 */
+	signUp(username, email, password) {
+		// -- safety, todo form validation
+		if (
+			//!creation.firstname ||
+			//!creation.lastname ||
+			!username ||
+			!email ||
+			!password
+		) {
+			console.log("error creation, missing elements");
+			return of(null);
+		}
+
+		console.log("Resgister user: ", username, email, password);
+
+		const postData = new FormData();
+		postData.append("username", username);
+		postData.append("email", email);
+		postData.append("password", password);
+		//postData.append("firstname", creation.firstname);
+		//postData.append("lastname", creation.lastname);
+
+		return this.http.post(`${environment.stonusUrl}/users/register`, postData);
+	}
+
+	resetPassword(usernameOrEmail) {
+		return this.http.post(`${environment.authUrl}/wp/v2/users/lostpassword`, {
+			user_login: usernameOrEmail,
+		});
 	}
 
 	ActivateUserIsAuthenticated() {

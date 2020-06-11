@@ -6,6 +6,7 @@ export const environment = {
 	production: false,
 	authUrl: "https://stonus.dev/wp-json",
 	apiUrl: "https://stonus.dev/wp-json/wp/v2",
+	stonusUrl: "https://stonus.dev/wp-json/stonus/v1",
 };
 
 /*
