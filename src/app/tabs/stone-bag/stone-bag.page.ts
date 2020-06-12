@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { SegmentChangeEventDetail } from "@ionic/core";
 import { ApiService } from "src/app/services/api.service";
 import { LoadingController } from "@ionic/angular";
+import { Plugins, CameraResultType } from "@capacitor/core";
+const { Camera } = Plugins;
 
 import * as L from "leaflet";
 //import { antPath } from "leaflet-ant-path";
@@ -14,6 +16,9 @@ import "leaflet/dist/images/marker-icon-2x.png";
 	styleUrls: ["./stone-bag.page.scss"],
 })
 export class StoneBagPage implements OnInit {
+	//PHOTO
+	image = null;
+
 	//Map
 	map: L.Map;
 	newMarker: any;
@@ -56,4 +61,20 @@ export class StoneBagPage implements OnInit {
 	// ionViewDidLeave() {
 	// 	this.map.remove();
 	// }
+
+	async takePicture() {
+		const image = await Camera.getPhoto({
+			quality: 50,
+			allowEditing: true,
+			resultType: CameraResultType.Uri,
+		});
+		console.log("image: ", image);
+		// image.webPath will contain a path that can be set as an image src.
+		// You can access the original file using image.path, which can be
+		// passed to the Filesystem API to read the raw data of the image,
+		// if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+		this.image = image.webPath;
+		// Can be set to the src of an image now
+		// imageElement.src = imageUrl;
+	}
 }
