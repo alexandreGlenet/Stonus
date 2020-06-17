@@ -27,10 +27,50 @@
       </div>
     </ion-row>
   </ion-grid>
+  <div *ngIf="onCreate">
+    <form [formGroup]="stoneForm" (ngSubmit)="validateCreateStone()">
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input formControlName="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input formControlName="description"></ion-input>
+      </ion-item>
+
+      <ion-item class="">
+        <ion-label position="">Photo de la pierre</ion-label>
+        <input formControlName="photoStone">
+      </ion-item>
+
+      <ion-item>
+        <img [src]="photoStone" style="width:60px; height:60px;" />
+      </ion-item>
+
+      <ion-button (click)="takePicture()"></ion-button>
+
+      <!-- <img formControlName="photoStone" (click)="takePicture()" [src]="photoStone" style="width:60px; height:60px;" /> -->
+      <!-- <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item> -->
+
+
+
+      <ion-button expand="full" [disabled]="!stoneForm.valid || !this.photoStone" type="submit">
+        Confirm</ion-button>
+
+
+
+
+    </form>
+  </div>
+
 
   <!-- fab placed to the bottom end -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="danger" (click)="takePicture()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!onCreate">
+    <ion-fab-button color="danger" (click)="createStone()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

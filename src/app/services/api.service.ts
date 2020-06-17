@@ -220,6 +220,29 @@ export class ApiService {
 			);
 	}
 
+	// CREATE STONE
+
+	validateCreateStone(title, description, photoStone) {
+		// -- safety, todo form validation
+		if (
+			!title ||
+			!description
+			// !photoStone
+		) {
+			console.log("error creation, missing elements");
+			return of(null);
+		}
+
+		console.log("Resgister Stone: ", title, description, photoStone);
+
+		const postData = new FormData();
+		postData.append("title", title);
+		postData.append("description", description);
+		postData.append("photo", photoStone);
+		//console.log(postData);
+		return this.http.post(`${environment.stonusUrl}/stones/add`, postData);
+	}
+
 	// UTILITAIRES
 
 	getCurrentUser() {

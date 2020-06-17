@@ -1,14 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Sanitizer } from "@angular/core";
 import { SegmentChangeEventDetail } from "@ionic/core";
 import { ApiService } from "src/app/services/api.service";
-import { LoadingController } from "@ionic/angular";
-import { Plugins, CameraResultType } from "@capacitor/core";
+import {
+	LoadingController,
+	ToastController,
+	AlertController,
+} from "@ionic/angular";
+import { Plugins, CameraResultType, CameraSource } from "@capacitor/core";
 const { Camera } = Plugins;
 
 import * as L from "leaflet";
 //import { antPath } from "leaflet-ant-path";
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
+import { DomSanitizer } from "@angular/platform-browser";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
 	selector: "app-stone-bag",
@@ -16,8 +22,11 @@ import "leaflet/dist/images/marker-icon-2x.png";
 	styleUrls: ["./stone-bag.page.scss"],
 })
 export class StoneBagPage implements OnInit {
+	//Formulaire création Stone
+	stoneForm: FormGroup;
+	onCreate = false;
 	//PHOTO
-	image = null;
+	photoStone = null;
 
 	//Map
 	map: L.Map;
@@ -28,7 +37,11 @@ export class StoneBagPage implements OnInit {
 
 	constructor(
 		private api: ApiService,
-		private loadingCtrl: LoadingController
+		private loadingCtrl: LoadingController,
+		private sanitizer: DomSanitizer,
+		private fb: FormBuilder,
+		private toastCtrl: ToastController,
+		private alertCtrl: AlertController
 	) {}
 
 	ngOnInit() {
@@ -67,14 +80,54 @@ export class StoneBagPage implements OnInit {
 			quality: 50,
 			allowEditing: true,
 			resultType: CameraResultType.Uri,
+			source: CameraSource.Camera,
 		});
 		console.log("image: ", image);
-		// image.webPath will contain a path that can be set as an image src.
-		// You can access the original file using image.path, which can be
-		// passed to the Filesystem API to read the raw data of the image,
-		// if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-		this.image = image.webPath;
-		// Can be set to the src of an image now
-		// imageElement.src = imageUrl;
+
+		this.photoStone = this.sanitizer.bypassSecurityTrustResourceUrl(
+			image && image.webPath
+		);
+	}
+
+	createStone() {
+		this.onCreate = true;
+		this.stoneForm = this.fb.group({
+			title: ["", Validators.required],
+			description: "",
+			photoStone: "",
+		});
+	}
+
+	validateCreateStone() {
+		this.onCreate = false;
+
+		this.api
+			.validateCreateStone(
+				this.stoneForm.value.title,
+				this.stoneForm.value.description,
+				this.photoStone
+			)
+			.subscribe(
+				async (res) => {
+					const toast = await this.toastCtrl.create({
+						message: res["message"],
+						duration: 3000,
+					});
+					toast.present();
+				},
+				(err) => {
+					this.showError(err);
+				}
+			);
+	}
+
+	async showError(err) {
+		const alert = await this.alertCtrl.create({
+			header: err.error.code,
+			subHeader: err.error.data.status,
+			message: err.error.message,
+			buttons: ["OK"],
+		});
+		await alert.present();
 	}
 }
