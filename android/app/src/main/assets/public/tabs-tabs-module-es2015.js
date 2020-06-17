@@ -92,12 +92,12 @@ const routes = [
             },
             {
                 path: "stone-bag",
-                loadChildren: () => Promise.all(/*! import() | stone-bag-stone-bag-module */[__webpack_require__.e("common"), __webpack_require__.e("stone-bag-stone-bag-module")]).then(__webpack_require__.bind(null, /*! ./stone-bag/stone-bag.module */ "./src/app/tabs/stone-bag/stone-bag.module.ts")).then((m) => m.StoneBagPageModule),
+                loadChildren: () => Promise.all(/*! import() | stone-bag-stone-bag-module */[__webpack_require__.e("default~profile-profile-module~stone-bag-stone-bag-module~stone-details-stone-details-module"), __webpack_require__.e("common"), __webpack_require__.e("stone-bag-stone-bag-module")]).then(__webpack_require__.bind(null, /*! ./stone-bag/stone-bag.module */ "./src/app/tabs/stone-bag/stone-bag.module.ts")).then((m) => m.StoneBagPageModule),
                 canLoad: [_authentification_authentifiction_guard__WEBPACK_IMPORTED_MODULE_4__["AuthentifictionGuard"]],
             },
             {
                 path: "profile",
-                loadChildren: () => Promise.all(/*! import() | profile-profile-module */[__webpack_require__.e("default~profile-profile-module~stone-details-stone-details-module"), __webpack_require__.e("common"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null, /*! ./profile/profile.module */ "./src/app/tabs/profile/profile.module.ts")).then((m) => m.ProfilePageModule),
+                loadChildren: () => Promise.all(/*! import() | profile-profile-module */[__webpack_require__.e("default~profile-profile-module~stone-bag-stone-bag-module~stone-details-stone-details-module"), __webpack_require__.e("common"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null, /*! ./profile/profile.module */ "./src/app/tabs/profile/profile.module.ts")).then((m) => m.ProfilePageModule),
                 canLoad: [_authentification_authentifiction_guard__WEBPACK_IMPORTED_MODULE_4__["AuthentifictionGuard"]],
             },
             {

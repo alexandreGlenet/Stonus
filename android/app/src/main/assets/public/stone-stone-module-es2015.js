@@ -14214,7 +14214,7 @@ const routes = [
     },
     {
         path: 'stones/:id',
-        loadChildren: () => Promise.all(/*! import() | stone-details-stone-details-module */[__webpack_require__.e("default~profile-profile-module~stone-details-stone-details-module"), __webpack_require__.e("stone-details-stone-details-module")]).then(__webpack_require__.bind(null, /*! ./stone-details/stone-details.module */ "./src/app/tabs/stone/stone-details/stone-details.module.ts")).then(m => m.StoneDetailsPageModule)
+        loadChildren: () => Promise.all(/*! import() | stone-details-stone-details-module */[__webpack_require__.e("default~profile-profile-module~stone-bag-stone-bag-module~stone-details-stone-details-module"), __webpack_require__.e("stone-details-stone-details-module")]).then(__webpack_require__.bind(null, /*! ./stone-details/stone-details.module */ "./src/app/tabs/stone/stone-details/stone-details.module.ts")).then(m => m.StoneDetailsPageModule)
     },
     {
         path: 'pickup-location',

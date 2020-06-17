@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11dd5417-2136-4f4b-b772-0a0bcbd8b19a" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,17 +18,15 @@
   </component>
   <component name="ProjectId" id="1dDesz0odvb9JTzJLnYYN09cmiF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -56,5 +53,39 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="644" y="248" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1592399839215">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="644" y="248" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592399839215" />
+    <state x="744" y="246" key="FileChooserDialogImpl" timestamp="1592401267314">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="744" y="246" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1592401267314" />
+    <state width="1727" height="338" key="GridCell.Tab.0.bottom" timestamp="1592401308975">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1727" height="338" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592401308975" />
+    <state width="1727" height="338" key="GridCell.Tab.0.center" timestamp="1592401308975">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1727" height="338" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592401308975" />
+    <state width="1727" height="338" key="GridCell.Tab.0.left" timestamp="1592401308975">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1727" height="338" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592401308975" />
+    <state width="1727" height="338" key="GridCell.Tab.0.right" timestamp="1592401308975">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1727" height="338" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592401308975" />
+    <state x="465" y="162" key="SettingsEditor" timestamp="1592400905059">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="465" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1592400905059" />
+    <state x="171" y="120" width="1587" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1592401381809">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="171" y="120" width="1587" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592401381809" />
   </component>
 </project>

@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Mon sac de pierres</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <ion-row class=\"flex\">\n      <div *ngFor=\"let stone of user?.user_stone\">\n        <div>\n          <ion-col size=\"6\">\n            <!-- <ion-list> -->\n            <!-- <div class=\"header\">\n              <h2>{{ stone.title }}</h2>\n            </div> -->\n            <div class=\"border-color\">\n              <div class=\"border-white\">\n                <ion-avatar>\n                  <img [src]=\"stone.photo.sizes['medium']\" [style.width]=\"'100%'\" *ngIf=\"stone.photo.sizes.medium\">\n                </ion-avatar>\n              </div>\n            </div>\n            <!-- </ion-list> -->\n          </ion-col>\n        </div>\n      </div>\n    </ion-row>\n  </ion-grid>\n\n  <!-- fab placed to the bottom end -->\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button color=\"danger\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Mon sac de pierres</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <ion-row class=\"flex\">\n      <div *ngFor=\"let stone of user?.user_stone\">\n        <div>\n          <ion-col size=\"6\">\n            <!-- <ion-list> -->\n            <!-- <div class=\"header\">\n              <h2>{{ stone.title }}</h2>\n            </div> -->\n            <div class=\"border-color\">\n              <div class=\"border-white\">\n                <ion-avatar>\n                  <img [src]=\"stone.photo.sizes['medium']\" [style.width]=\"'100%'\" *ngIf=\"stone.photo.sizes.medium\">\n                </ion-avatar>\n              </div>\n            </div>\n            <!-- </ion-list> -->\n          </ion-col>\n        </div>\n      </div>\n    </ion-row>\n  </ion-grid>\n  <div *ngIf=\"onCreate\">\n    <form [formGroup]=\"stoneForm\" (ngSubmit)=\"validateCreateStone()\">\n      <ion-item>\n        <ion-label position=\"floating\">Title</ion-label>\n        <ion-input formControlName=\"title\"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label position=\"floating\">Description</ion-label>\n        <ion-input formControlName=\"description\"></ion-input>\n      </ion-item>\n\n      <ion-item class=\"\">\n        <ion-label position=\"\">Photo de la pierre</ion-label>\n        <input formControlName=\"photoStone\">\n      </ion-item>\n\n      <ion-item>\n        <img [src]=\"photoStone\" style=\"width:60px; height:60px;\" />\n      </ion-item>\n\n      <ion-button (click)=\"takePicture()\"></ion-button>\n\n      <!-- <img formControlName=\"photoStone\" (click)=\"takePicture()\" [src]=\"photoStone\" style=\"width:60px; height:60px;\" /> -->\n      <!-- <ion-item>\n        <ion-label position=\"floating\">Password</ion-label>\n        <ion-input type=\"password\" formControlName=\"password\"></ion-input>\n      </ion-item> -->\n\n\n\n      <ion-button expand=\"full\" [disabled]=\"!stoneForm.valid || !this.photoStone\" type=\"submit\">\n        Confirm</ion-button>\n\n\n\n\n    </form>\n  </div>\n\n\n  <!-- fab placed to the bottom end -->\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\" *ngIf=\"!onCreate\">\n    <ion-fab-button color=\"danger\" (click)=\"createStone()\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n</ion-content>");
 
 /***/ }),
 
@@ -82,9 +82,10 @@ StoneBagPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-            _stone_bag_routing_module__WEBPACK_IMPORTED_MODULE_5__["StoneBagPageRoutingModule"]
+            _stone_bag_routing_module__WEBPACK_IMPORTED_MODULE_5__["StoneBagPageRoutingModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
         ],
-        declarations: [_stone_bag_page__WEBPACK_IMPORTED_MODULE_6__["StoneBagPage"]]
+        declarations: [_stone_bag_page__WEBPACK_IMPORTED_MODULE_6__["StoneBagPage"]],
     })
 ], StoneBagPageModule);
 
@@ -101,7 +102,7 @@ StoneBagPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".header {\n  background-color: var(--ion-color-primary-shade);\n  height: 12rem;\n  padding-top: 1px;\n}\n\n.header h2 {\n  color: white;\n  font-weight: 500;\n  text-align: center;\n  margin-top: 3rem;\n}\n\n.border-white {\n  border: 4px solid white;\n  border-radius: 50%;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.border-color {\n  border: 7px solid var(--ion-color-primary);\n  border-radius: 50%;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.flex {\n  display: flex;\n  justify-content: space-evenly;\n}\n\nion-avatar {\n  height: 6rem;\n  width: 6rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFicy9zdG9uZS1iYWcvRDpcXE1BTVBcXGh0ZG9jc1xcZ2l0a3Jha2VuXFxTdG9udXMvc3JjXFxhcHBcXHRhYnNcXHN0b25lLWJhZ1xcc3RvbmUtYmFnLnBhZ2Uuc2NzcyIsInNyYy9hcHAvdGFicy9zdG9uZS1iYWcvc3RvbmUtYmFnLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdEQUFBO0VBQ0EsYUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxZQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FER0E7RUFDSSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0EsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0FDQUo7O0FER0E7RUFDSSwwQ0FBQTtFQUNBLGtCQUFBO0VBQ0EsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0FDQUo7O0FER0E7RUFDSSxhQUFBO0VBQ0EsNkJBQUE7QUNBSjs7QURNQTtFQUNJLFlBQUE7RUFDQSxXQUFBO0FDSEoiLCJmaWxlIjoic3JjL2FwcC90YWJzL3N0b25lLWJhZy9zdG9uZS1iYWcucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmhlYWRlciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeS1zaGFkZSk7XHJcbiAgICBoZWlnaHQ6IDEycmVtO1xyXG4gICAgcGFkZGluZy10b3A6IDFweDtcclxufVxyXG5cclxuLmhlYWRlciBoMiB7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBmb250LXdlaWdodDogNTAwO1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgbWFyZ2luLXRvcDogM3JlbTtcclxuXHJcbn1cclxuXHJcbi5ib3JkZXItd2hpdGUge1xyXG4gICAgYm9yZGVyOiA0cHggc29saWQgd2hpdGU7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICB3aWR0aDogZml0LWNvbnRlbnQ7XHJcbn1cclxuXHJcbi5ib3JkZXItY29sb3Ige1xyXG4gICAgYm9yZGVyOiA3cHggc29saWQgdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gICAgd2lkdGg6IGZpdC1jb250ZW50O1xyXG59XHJcblxyXG4uZmxleCB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XHJcbiAgICAvL21hcmdpbi10b3A6IC02cmVtO1xyXG4gICAgLy9tYXJnaW4tcmlnaHQ6IDJweDtcclxuICAgIC8vd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbmlvbi1hdmF0YXIge1xyXG4gICAgaGVpZ2h0OiA2cmVtO1xyXG4gICAgd2lkdGg6IDZyZW07XHJcbn0iLCIuaGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnktc2hhZGUpO1xuICBoZWlnaHQ6IDEycmVtO1xuICBwYWRkaW5nLXRvcDogMXB4O1xufVxuXG4uaGVhZGVyIGgyIHtcbiAgY29sb3I6IHdoaXRlO1xuICBmb250LXdlaWdodDogNTAwO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbi10b3A6IDNyZW07XG59XG5cbi5ib3JkZXItd2hpdGUge1xuICBib3JkZXI6IDRweCBzb2xpZCB3aGl0ZTtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICB3aWR0aDogZml0LWNvbnRlbnQ7XG59XG5cbi5ib3JkZXItY29sb3Ige1xuICBib3JkZXI6IDdweCBzb2xpZCB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xufVxuXG4uZmxleCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xufVxuXG5pb24tYXZhdGFyIHtcbiAgaGVpZ2h0OiA2cmVtO1xuICB3aWR0aDogNnJlbTtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".header {\n  background-color: var(--ion-color-primary-shade);\n  height: 12rem;\n  padding-top: 1px;\n}\n\n.header h2 {\n  color: white;\n  font-weight: 500;\n  text-align: center;\n  margin-top: 3rem;\n}\n\n.border-white {\n  border: 4px solid white;\n  border-radius: 50%;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.border-color {\n  border: 7px solid var(--ion-color-primary);\n  border-radius: 50%;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.flex {\n  display: flex;\n  justify-content: space-evenly;\n}\n\nion-avatar {\n  height: 6rem;\n  width: 6rem;\n}\n\n.hidden {\n  display: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFicy9zdG9uZS1iYWcvRDpcXE1BTVBcXGh0ZG9jc1xcZ2l0a3Jha2VuXFxTdG9udXMvc3JjXFxhcHBcXHRhYnNcXHN0b25lLWJhZ1xcc3RvbmUtYmFnLnBhZ2Uuc2NzcyIsInNyYy9hcHAvdGFicy9zdG9uZS1iYWcvc3RvbmUtYmFnLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdEQUFBO0VBQ0EsYUFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxZQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FER0E7RUFDSSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0EsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0FDQUo7O0FER0E7RUFDSSwwQ0FBQTtFQUNBLGtCQUFBO0VBQ0EsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0FDQUo7O0FER0E7RUFDSSxhQUFBO0VBQ0EsNkJBQUE7QUNBSjs7QURNQTtFQUNJLFlBQUE7RUFDQSxXQUFBO0FDSEo7O0FETUE7RUFDSSxhQUFBO0FDSEoiLCJmaWxlIjoic3JjL2FwcC90YWJzL3N0b25lLWJhZy9zdG9uZS1iYWcucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmhlYWRlciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeS1zaGFkZSk7XHJcbiAgICBoZWlnaHQ6IDEycmVtO1xyXG4gICAgcGFkZGluZy10b3A6IDFweDtcclxufVxyXG5cclxuLmhlYWRlciBoMiB7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBmb250LXdlaWdodDogNTAwO1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgbWFyZ2luLXRvcDogM3JlbTtcclxuXHJcbn1cclxuXHJcbi5ib3JkZXItd2hpdGUge1xyXG4gICAgYm9yZGVyOiA0cHggc29saWQgd2hpdGU7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICB3aWR0aDogZml0LWNvbnRlbnQ7XHJcbn1cclxuXHJcbi5ib3JkZXItY29sb3Ige1xyXG4gICAgYm9yZGVyOiA3cHggc29saWQgdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gICAgd2lkdGg6IGZpdC1jb250ZW50O1xyXG59XHJcblxyXG4uZmxleCB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XHJcbiAgICAvL21hcmdpbi10b3A6IC02cmVtO1xyXG4gICAgLy9tYXJnaW4tcmlnaHQ6IDJweDtcclxuICAgIC8vd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbmlvbi1hdmF0YXIge1xyXG4gICAgaGVpZ2h0OiA2cmVtO1xyXG4gICAgd2lkdGg6IDZyZW07XHJcbn1cclxuXHJcbi5oaWRkZW4ge1xyXG4gICAgZGlzcGxheTogbm9uZTtcclxufSIsIi5oZWFkZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeS1zaGFkZSk7XG4gIGhlaWdodDogMTJyZW07XG4gIHBhZGRpbmctdG9wOiAxcHg7XG59XG5cbi5oZWFkZXIgaDIge1xuICBjb2xvcjogd2hpdGU7XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luLXRvcDogM3JlbTtcbn1cblxuLmJvcmRlci13aGl0ZSB7XG4gIGJvcmRlcjogNHB4IHNvbGlkIHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbn1cblxuLmJvcmRlci1jb2xvciB7XG4gIGJvcmRlcjogN3B4IHNvbGlkIHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICB3aWR0aDogZml0LWNvbnRlbnQ7XG59XG5cbi5mbGV4IHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG59XG5cbmlvbi1hdmF0YXIge1xuICBoZWlnaHQ6IDZyZW07XG4gIHdpZHRoOiA2cmVtO1xufVxuXG4uaGlkZGVuIHtcbiAgZGlzcGxheTogbm9uZTtcbn0iXX0= */");
 
 /***/ }),
 
@@ -119,19 +120,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var src_app_services_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/api.service */ "./src/app/services/api.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var leaflet_dist_images_marker_shadow_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png");
-/* harmony import */ var leaflet_dist_images_marker_icon_2x_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! leaflet/dist/images/marker-icon-2x.png */ "./node_modules/leaflet/dist/images/marker-icon-2x.png");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @capacitor/core */ "./node_modules/@capacitor/core/dist/esm/index.js");
+/* harmony import */ var leaflet_dist_images_marker_shadow_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png");
+/* harmony import */ var leaflet_dist_images_marker_icon_2x_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! leaflet/dist/images/marker-icon-2x.png */ "./node_modules/leaflet/dist/images/marker-icon-2x.png");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/__ivy_ngcc__/fesm2015/platform-browser.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 
 
 
 
+
+const { Camera } = _capacitor_core__WEBPACK_IMPORTED_MODULE_4__["Plugins"];
 //import { antPath } from "leaflet-ant-path";
 
 
+
+
 let StoneBagPage = class StoneBagPage {
-    constructor(api, loadingCtrl) {
+    constructor(api, loadingCtrl, sanitizer, fb, toastCtrl, alertCtrl) {
         this.api = api;
         this.loadingCtrl = loadingCtrl;
+        this.sanitizer = sanitizer;
+        this.fb = fb;
+        this.toastCtrl = toastCtrl;
+        this.alertCtrl = alertCtrl;
+        this.onCreate = false;
+        //PHOTO
+        this.photoStone = null;
         this.user = null;
     }
     ngOnInit() {
@@ -158,10 +173,62 @@ let StoneBagPage = class StoneBagPage {
         //console.log("willleave");
         //console.log(this.map);
     }
+    // ionViewDidLeave() {
+    // 	this.map.remove();
+    // }
+    takePicture() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const image = yield Camera.getPhoto({
+                quality: 50,
+                allowEditing: true,
+                resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_4__["CameraResultType"].Uri,
+                source: _capacitor_core__WEBPACK_IMPORTED_MODULE_4__["CameraSource"].Camera,
+            });
+            console.log("image: ", image);
+            this.photoStone = this.sanitizer.bypassSecurityTrustResourceUrl(image && image.webPath);
+        });
+    }
+    createStone() {
+        this.onCreate = true;
+        this.stoneForm = this.fb.group({
+            title: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required],
+            description: "",
+            photoStone: "",
+        });
+    }
+    validateCreateStone() {
+        this.onCreate = false;
+        this.api
+            .validateCreateStone(this.stoneForm.value.title, this.stoneForm.value.description, this.photoStone)
+            .subscribe((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const toast = yield this.toastCtrl.create({
+                message: res["message"],
+                duration: 3000,
+            });
+            toast.present();
+        }), (err) => {
+            this.showError(err);
+        });
+    }
+    showError(err) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alert = yield this.alertCtrl.create({
+                header: err.error.code,
+                subHeader: err.error.data.status,
+                message: err.error.message,
+                buttons: ["OK"],
+            });
+            yield alert.present();
+        });
+    }
 };
 StoneBagPage.ctorParameters = () => [
     { type: src_app_services_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
+    { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["DomSanitizer"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormBuilder"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] }
 ];
 StoneBagPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

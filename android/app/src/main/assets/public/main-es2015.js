@@ -427,6 +427,57 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
+/***/ "./node_modules/@ionic/pwa-elements/dist/esm lazy recursive ^\\.\\/.*\\.entry\\.js$ include: \\.entry\\.js$ exclude: \\.system\\.entry\\.js$":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/@ionic/pwa-elements/dist/esm lazy ^\.\/.*\.entry\.js$ include: \.entry\.js$ exclude: \.system\.entry\.js$ namespace object ***!
+  \*************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./pwa-action-sheet.entry.js": [
+		"./node_modules/@ionic/pwa-elements/dist/esm/pwa-action-sheet.entry.js",
+		77
+	],
+	"./pwa-camera-modal-instance.entry.js": [
+		"./node_modules/@ionic/pwa-elements/dist/esm/pwa-camera-modal-instance.entry.js",
+		78
+	],
+	"./pwa-camera-modal.entry.js": [
+		"./node_modules/@ionic/pwa-elements/dist/esm/pwa-camera-modal.entry.js",
+		79
+	],
+	"./pwa-camera.entry.js": [
+		"./node_modules/@ionic/pwa-elements/dist/esm/pwa-camera.entry.js",
+		80
+	],
+	"./pwa-toast.entry.js": [
+		"./node_modules/@ionic/pwa-elements/dist/esm/pwa-toast.entry.js",
+		81
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./node_modules/@ionic/pwa-elements/dist/esm lazy recursive ^\\.\\/.*\\.entry\\.js$ include: \\.entry\\.js$ exclude: \\.system\\.entry\\.js$";
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html":
 /*!**************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html ***!
@@ -825,6 +876,24 @@ let ApiService = class ApiService {
             return data;
         }));
     }
+    // CREATE STONE
+    validateCreateStone(title, description, photoStone) {
+        // -- safety, todo form validation
+        if (!title ||
+            !description
+        // !photoStone
+        ) {
+            console.log("error creation, missing elements");
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])(null);
+        }
+        console.log("Resgister Stone: ", title, description, photoStone);
+        const postData = new FormData();
+        postData.append("title", title);
+        postData.append("description", description);
+        postData.append("photo", photoStone);
+        //console.log(postData);
+        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].stonusUrl}/stones/add`, postData);
+    }
     // UTILITAIRES
     getCurrentUser() {
         return this.user.asObservable();
@@ -904,6 +973,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/__ivy_ngcc__/fesm2015/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _ionic_pwa_elements_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/pwa-elements/loader */ "./node_modules/@ionic/pwa-elements/loader/index.es2017.mjs");
+
 
 
 
@@ -911,8 +982,11 @@ __webpack_require__.r(__webpack_exports__);
 if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
 }
-Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
-    .catch(err => console.log(err));
+Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])()
+    .bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
+    .catch((err) => console.log(err));
+// Call the element loader after the platform has been bootstrapped
+Object(_ionic_pwa_elements_loader__WEBPACK_IMPORTED_MODULE_4__["defineCustomElements"])(window);
 
 
 /***/ }),

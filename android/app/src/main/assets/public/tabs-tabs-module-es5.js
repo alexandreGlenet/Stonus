@@ -180,7 +180,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | stone-bag-stone-bag-module */
-          [__webpack_require__.e("common"), __webpack_require__.e("stone-bag-stone-bag-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~profile-profile-module~stone-bag-stone-bag-module~stone-details-stone-details-module"), __webpack_require__.e("common"), __webpack_require__.e("stone-bag-stone-bag-module")]).then(__webpack_require__.bind(null,
           /*! ./stone-bag/stone-bag.module */
           "./src/app/tabs/stone-bag/stone-bag.module.ts")).then(function (m) {
             return m.StoneBagPageModule;
@@ -192,7 +192,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profile-profile-module */
-          [__webpack_require__.e("default~profile-profile-module~stone-details-stone-details-module"), __webpack_require__.e("common"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~profile-profile-module~stone-bag-stone-bag-module~stone-details-stone-details-module"), __webpack_require__.e("common"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null,
           /*! ./profile/profile.module */
           "./src/app/tabs/profile/profile.module.ts")).then(function (m) {
             return m.ProfilePageModule;
